@@ -26,12 +26,6 @@ interface RebalancePreviewSheetProps {
   onExecute: () => void
 }
 
-const STOCK_LOGOS: Record<string, string> = {
-  AAPL: "🍎",
-  GOOGL: "🔍",
-  TSLA: "⚡",
-}
-
 export function RebalancePreviewSheet({ open, onOpenChange, orders, summary, onExecute }: RebalancePreviewSheetProps) {
   return (
     <Drawer.Root open={open} onOpenChange={onOpenChange}>

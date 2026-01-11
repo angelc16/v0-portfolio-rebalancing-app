@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server"
-import { getPortfolioService } from "@/lib/portfolio-service"
+import { PortfolioManager } from "@/lib/services/portfolio-manager"
 
 export async function GET() {
   try {
-    const service = getPortfolioService()
-    const data = await service.getPortfolio()
+    const manager = new PortfolioManager()
+    const data = manager.getPortfolioData()
 
     return NextResponse.json({
       message: "Portfolio initialized",

@@ -14,6 +14,7 @@ interface Position {
   currentPrice: number
   totalValue: number
   percentage: number
+  color?: string
 }
 
 interface ModifyAllocationSheetProps {
@@ -21,12 +22,6 @@ interface ModifyAllocationSheetProps {
   onOpenChange: (open: boolean) => void
   positions: Position[]
   onCalculate: (allocation: Record<string, number>) => void
-}
-
-const STOCK_COLORS: Record<string, string> = {
-  AAPL: "#5B9FFF",
-  GOOGL: "#FF8A4D",
-  TSLA: "#4DFFB8",
 }
 
 export function ModifyAllocationSheet({ open, onOpenChange, positions, onCalculate }: ModifyAllocationSheetProps) {
@@ -110,7 +105,7 @@ export function ModifyAllocationSheet({ open, onOpenChange, positions, onCalcula
                     <div
                       className="absolute inset-0 rounded-full opacity-30"
                       style={{
-                        background: `linear-gradient(to right, ${STOCK_COLORS[pos.ticker]}, ${STOCK_COLORS[pos.ticker]}40)`,
+                        background: `linear-gradient(to right, ${pos.color || "#4DFFB8"}, ${pos.color || "#4DFFB8"}40)`,
                       }}
                     />
                     <Slider
@@ -118,15 +113,11 @@ export function ModifyAllocationSheet({ open, onOpenChange, positions, onCalcula
                       onValueChange={(value) => handleSliderChange(pos.ticker, value)}
                       max={100}
                       step={1}
-                      className="relative z-10 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-4 [&_[role=slider]]:border-[#1A1F2E] [&_[role=slider]]:shadow-lg"
-                      style={{
-                        // @ts-ignore
-                        "--slider-thumb": STOCK_COLORS[pos.ticker],
-                      }}
+                      className={`relative z-10 [&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-4 [&_[role=slider]]:border-[#1A1F2E] [&_[role=slider]]:shadow-lg slider-${pos.ticker}`}
                     />
                     <style jsx>{`
-                      :global([role="slider"]) {
-                        background: ${STOCK_COLORS[pos.ticker]} !important;
+                      :global(.slider-${pos.ticker} [role="slider"]) {
+                        background: ${pos.color || "#4DFFB8"} !important;
                       }
                     `}</style>
                   </div>
@@ -138,7 +129,7 @@ export function ModifyAllocationSheet({ open, onOpenChange, positions, onCalcula
             <div className="mt-8 flex items-center justify-between rounded-xl bg-[#0F1419] p-4">
               <span className="font-semibold text-white">Total: {total}%</span>
               {isValid ? (
-                <span className="text-sm font-semibold text-emerald-400">Chang = 100%</span>
+                <span className="text-sm font-semibold text-emerald-400">100%</span>
               ) : (
                 <span className="text-sm font-semibold text-red-400">Must equal 100%</span>
               )}

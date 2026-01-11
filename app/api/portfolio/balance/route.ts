@@ -1,16 +1,18 @@
 import { NextResponse } from "next/server"
-import { getPortfolioService } from "@/lib/portfolio-service"
+import { PortfolioManager } from "@/lib/services/portfolio-manager"
+import { AllocationTarget } from "@/lib/domain-types"
 
 export async function POST(request: Request) {
   try {
-    const { allocation } = await request.json()
+    const body = await request.json()
+    const allocation: AllocationTarget = body.allocation
 
     if (!allocation || typeof allocation !== "object") {
       return NextResponse.json({ error: "Invalid allocation format" }, { status: 400 })
     }
 
-    const service = getPortfolioService()
-    const result = await service.calculateRebalance(allocation)
+    const manager = new PortfolioManager()
+    const result = manager.calculateRebalance(allocation)
 
     return NextResponse.json({
       message: "Rebalance calculated successfully",

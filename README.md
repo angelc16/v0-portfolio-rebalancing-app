@@ -1,30 +1,31 @@
 # Portfolio rebalancing app
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+## Getting Started
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/angelc16s-projects/v0-portfolio-rebalancing-app)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/qtwYSoHPgJ4)
+To run this project locally:
 
-## Overview
+1.  Install dependencies:
+    ```bash
+    pnpm install
+    ```
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+2.  Start the development server:
+    ```bash
+    pnpm dev
+    ```
 
-## Deployment
+3.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Your project is live at:
+## Solution Architecture & Key Decisions
 
-**[https://vercel.com/angelc16s-projects/v0-portfolio-rebalancing-app](https://vercel.com/angelc16s-projects/v0-portfolio-rebalancing-app)**
+This application follows a **Domain-Driven Design (DDD)** approach to separate business logic from the UI and infrastructure.
 
-## Build your app
+### Core Concepts
 
-Continue building your app on:
+1.  **Domain Models (`lib/models/`)**:
+    *   **Portfolio**: The aggregate root. It encapsulates the state (list of Stocks) and business actions (calculation of total value, rebalancing logic).
+    *   **Stock**: Value object representing a single holding. Contains logic for price updates and DTO conversion.
 
-**[https://v0.app/chat/qtwYSoHPgJ4](https://v0.app/chat/qtwYSoHPgJ4)**
-
-## How It Works
-
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+2.  **Application Service (`lib/services/portfolio-manager.ts`)**:
+    *   Acts as a facade. It orchestrates the flow between the API, the Domain Models, and the Persistence layer (Store).
+    *   Handles "transactions" (calculating rebalance -> returning summary).

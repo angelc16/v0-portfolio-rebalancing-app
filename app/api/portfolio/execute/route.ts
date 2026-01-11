@@ -1,17 +1,21 @@
 import { NextResponse } from "next/server"
-import { getPortfolioService } from "@/lib/portfolio-service"
-import type { Order } from "@/lib/data-provider"
+import { PortfolioManager } from "@/lib/services/portfolio-manager"
+import { RebalanceOrder } from "@/lib/domain-types"
 
 export async function POST(request: Request) {
   try {
-    const { orders } = await request.json()
+    const body = await request.json()
+    const orders: RebalanceOrder[] = body.orders.map((o: any) => ({
+        ...o,
+        totalAmount: o.totalValue
+    }))
 
     if (!Array.isArray(orders)) {
       return NextResponse.json({ error: "Invalid orders format" }, { status: 400 })
     }
 
-    const service = getPortfolioService()
-    const data = await service.executeRebalance(orders as Order[])
+    const manager = new PortfolioManager()
+    const data = manager.executeRebalance(orders)
 
     return NextResponse.json({
       message: "Rebalance executed. Portfolio updated.",

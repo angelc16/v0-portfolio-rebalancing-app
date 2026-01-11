@@ -1,0 +1,41 @@
+{
+  "totalValue": 20846.932111000002,
+  "cashAvailable": 2.27,
+  "positions": [
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "quantity": 12.717300000000009,
+      "currentPrice": 48.11,
+      "totalValue": 611.8293030000004,
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+      "color": "#5B9FFF"
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc.",
+      "quantity": 49.67390000000002,
+      "currentPrice": 91.47,
+      "totalValue": 4543.671633000002,
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
+      "color": "#FF8A4D"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla Inc.",
+      "quantity": 138.16509999999997,
+      "currentPrice": 42.94,
+      "totalValue": 5932.809393999998,
+      "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png",
+      "color": "#4DFFB8"
+    },
+    {
+      "ticker": "IBM",
+      "name": "IBM Corp",
+      "quantity": 563.1057000000001,
+      "currentPrice": 17.33,
+      "totalValue": 9758.621781,
+      "color": "#A78BFA"
+    }
+  ]
+}
